@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<title>Travel Explorar</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Destino project">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="google-signin-client_id" content="980135476714-ibh5p28a48dv40h32eadbeagnfn5qq3m.apps.googleusercontent.com">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" type="application/javascript"></script>
+	<script src="js/FacebookScript.js"></script>
+	<script src="js/FaceBookLogout.js"></script>
+	<script src="js/PlaceSearch.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
+	<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
+	<link href="plugins/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="styles/main_styles.css">
+	<link rel="stylesheet" type="text/css" href="styles/responsive.css">
+	<link rel="stylesheet" type="text/css" href="css/offers_styles.css">
+	<link rel="stylesheet" type="text/css" href="css/offers_responsive.css">
+<style>
+	/* The Modal (background) */
+	.modal {
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		padding-top: 100px; /* Location of the box */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow: auto; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+
+	/* Modal Content */
+	.modal-content {
+		background-image: url("images/fact_background.jpg");;
+		margin: auto;
+		padding: 20px;
+		border: 1px solid #888;
+		width: 80%;
+	}
+
+	/* The Close Button */
+	.close {
+		color: #aaaaaa;
+		float: right;
+		font-size: 10px;
+		font-weight: bold;
+	}
+
+	.close:hover,
+	.close:focus {
+		color: #000;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+</style>
+
+
+</head>
+<body>
+
+<div class="super_container" ng-app="indexpage" ng-controller="indexctrl">
+	
+	<!-- Header -->
+
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="header_container d-flex flex-row align-items-center justify-content-start">
+
+						<!-- Logo -->
+						<div class="logo_container">
+							<div class="logo">
+								<!--<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Travel Explorer</div>-->
+								<div class="logo_image"><img src="images/Travel_Explorer.png" alt=""></div>
+								<br>
+								<div>Make memories around the world</div>
+							</div>
+						</div>
+
+						<!-- Main Navigation -->
+						<nav class="main_nav ml-auto">
+							<ul class="main_nav_list">
+								<li class="main_nav_item active"><a href="#">Home</a></li>
+								<li class="main_nav_item"><a href="profile.html">Profile</a></li>
+								<li class="main_nav_item"><a href="contact.html">Contact</a></li>
+								<li class="main_nav_item"><a href="history.html">History</a></li>
+								<li class="main_nav_item"><a href="about.html">About us</a></li>
+								<li class="main_nav_item" onclick="signOut();"><a href="" >Sign Out</a></li>
+							</ul>
+						</nav>
+						<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+						<!-- Search -->
+						<!-- Hamburger -->
+						<div class="hamburger ml-auto"><i class="fa fa-bars" aria-hidden="true"></i></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- Menu -->
+
+	
+	<!-- Home -->
+
+	<div class="home">
+
+        <div class="home_background" style="background-image:url(images/home.jpg)"></div>
+
+
+        <div class="home_content">
+			<div class="home_content_inner">
+				<!--<div class="home_text_small">discover</div>-->
+				<div class="home_text_small">
+                    <h1><label id="userDetails"></label></h1>
+                    <h1>Travel Explorer</h1>
+                </div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Find Form -->
+
+	<div class="find">
+		<!-- Image by https://unsplash.com/@garciasaldana_ -->
+		<div class="find_background parallax-window" data-parallax="scroll" data-image-src="images/newsletter.jpg" data-speed="0.8"></div>
+		<div class="container" >
+			<div class="row" >
+				<div class="col-12">
+					<div class="find_title text-center">Make Memories Around The World
+					</div>
+				</div>
+				
+					<div class="find_form_container">
+						<form action="#" id="find_form" class="find_form d-flex flex-md-row flex-column align-items-md-center align-items-start justify-content-md-between justify-content-start flex-wrap">
+							<div class="find_item">
+								<div>Destination:</div>
+								<input type="text"  class="destination find_input" id="searchDestination" ng-model="searchDestination" placeholder="Enter your Destination">
+								<h5 id="finalError" style="color: red; ">{{finalErr}}</h5>
+							</div>
+							<div style="top: -2.5%" class="find_item">
+								<div style="position:relative;left: -40%">Number of Days</div>
+								<input type="text" style="position:relative;left: -40%;" class="destination find_input" id="no_days" ng-model="no_days">
+							</div>
+							<div style="top: -2.5%" class="find_item">
+								<div style="position:relative;left: -80%">Budget</div>
+								<input type="text" ng-model="budget" style="position:relative;left: -80%" class="destination find_input"  placeholder="">
+							</div>
+							<div style="top: -2.5%" class="find_item" ng-model="interest">
+								<div style="position:relative;left: -180%;">Interest</div>
+								<select name="interest" id="interest" style="position:relative;left: -180%;width: 200px" class="dropdown_item_select find_input">
+									<option>Select</option>
+						 			<option>Museum</option>
+									<option>Adventure</option>
+									<option>Devotional</option>
+									<option>Scenic</option>
+									<option>Party</option>
+								</select>
+							</div>
+							<!--<button class="button find_button">Find</button>-->
+							<div>
+								</br>
+								<input type="button" class="button" style="color: #fe435b;" ng-click="getSearchResult()" value="Find"/>
+                                &nbsp &nbsp<input type="button" id="btn2" class="button" style="color: #fe435b;visibility: hidden" ng-click="viewDirections()" value="Plan Your Trip"/>
+								&nbsp &nbsp<input type="button" id="btn3" class="button" style="color: #fe435b;visibility: hidden" ng-click="viewDirections1()" value="View Itinerary"/>
+							</div>
+
+							
+						</form>
+					</div>
+				
+				
+				<div >
+
+								
+				
+				
+			</div>
+		</div>
+	</div>
+
+	
+	
+								<!--<p id="errormsg"></p>-->
+								<!--<p style="color: #FFFFFF"><b>{{description}}</b></p>-->
+								<!--<p style="color: #FFFFFF">{{searchDescription}}</p>-->
+								<!--<p><b>{{wikiheading}}</b></p>-->
+								<!--<p><a href="{{wiki}}"> {{wiki}}</a> </p>-->
+								<!--<p><img  ng-src="{{searchimage}} "></p>-->
+
+
+							</div>
+	<div class="container">
+		<div class="row" ng-repeat="x in placesArray">
+			<div class="col">
+				<div class="items item_grid clearfix">
+
+					<!-- Item -->
+					<div class="item clearfix rating_5">
+						<div class="item_image"><img ng-src="{{x.substring(x.indexOf('^^^')+3,x.length)}}"/></div>
+						<div class="item_content">
+
+                            <div class="item_text"><h3>{{x.substring(x.indexOf("***")+3,x.indexOf("^^^"))}}</h3></div>
+                            <div class="item_text"><h4>{{x.substring(x.indexOf("###")+3,x.indexOf("***"))}}</h4></div>
+							<div class="item_text"><h4>{{searchDescription[$index]}}</h4></div>
+                            <div class="item_text">{{x.substring(0,x.indexOf("###"))}} <i class="fa fa-star"></i> </div>
+							<ul>
+								<li><table><tr ng-repeat="x in weekdayHours[$index]">
+									<td class="item_text">{{x}}</td>
+								</tr></table></li>
+
+							</ul>
+
+							<button class={{$index}}  onclick ="abc(this.className)">Read Review</button>
+
+							<div id ={{$index}}  style="visibility: hidden; display:none;" >
+								<span class="close">click outside to close</span>
+								<div class="item_text"><h2>User Reviews</h2>   </div>
+								<div class="item_text"><b>{{author_name_header}}</b>   <b>{{user_rating_header}} </b> {{reviews[$index].substring(reviews[$index].indexOf('$$')+2,reviews[$index].length)}}</div>
+								<div class="item_text" id="please">{{comment_header}}</b> {{reviews[$index].substring(reviews[$index].indexOf('##')+2,reviews[$index].indexOf('$$'))}}
+								</div>
+							</div>
+
+							<!--<div class="rating rating_5" data-rating="5">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+							</div>-->
+
+
+
+							<!-- The Modal -->
+							<div id="myModal" class="modal">
+								<!-- Modal content -->
+								<div class="modal-content" id="finalpop">
+
+
+								</div>
+							</div>
+
+
+							<script>
+								var id_gobal=0;
+                                // Get the modal
+                                var modal = document.getElementById('myModal');
+
+                                // Get the button that opens the modal
+                                var btn = document.getElementById("myBtn");
+
+                                // Get the <span> element that closes the modal
+                                var span = document.getElementsByClassName("close")[0];
+
+                                // When the user clicks the button, open the modal
+                                function abc(id) {
+                                     id_gobal=id;
+
+                                    document.getElementById("finalpop").innerHTML = document.getElementById(id_gobal).innerHTML ;
+
+                                    modal.style.display = "block";
+                                }
+                                // When the user clicks on <span> (x), close the modal
+                                span.onclick = function() {
+                                    modal.style.display = "none";
+                                }
+
+                                // When the user clicks anywhere outside of the modal, close it
+                                window.onclick = function(event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                }
+
+							</script>
+
+
+
+
+
+
+
+
+						</div>
+					</div>
+					<!-- Item -->
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
+<script>
+    var url=window.location.href;
+    var userName=(url.substring(url.indexOf("?")+1,url.length)).replace("%20"," ");
+
+    console.log("It is !!!!!!!!!!!"+userName);
+    if(userName.indexOf("place")<0) {
+        var uname="";
+        if(localStorage.getItem("firstname") !=null)
+        {
+             uname=localStorage.getItem("firstname");
+        }
+        else
+        {
+            var url=window.location.href;
+            uname=(url.substring(url.indexOf("?")+1,url.length)).replace("%20"," ");
+        }
+        document.getElementById("userDetails").textContent = "Welcome " + uname + "!!!! ";
+    }
+    else {
+        document.getElementById("userDetails").textContent = "";
+        // console.log("i am here");
+        // document.getElementById("searchDestination").value ="aaaaaaaaa" ;
+    }
+
+</script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="styles/bootstrap4/popper.js"></script>
+<script src="styles/bootstrap4/bootstrap.min.js"></script>
+<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="plugins/easing/easing.js"></script>
+<script src="plugins/parallax-js-master/parallax.min.js"></script>
+<script src="plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
