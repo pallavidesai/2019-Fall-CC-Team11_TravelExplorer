@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/tst.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+</head>
+<body>
+<center>
+<div class="col-md-4 col-md-offset-4" ng-app="demoMongo" ng-controller="MongoRestController">
+    <div class="box-content profile">
+        <h3 class="widget-title">Register Here</h3>
+        <form class="contact-form simple-form">
+            <fieldset>
+                <input type="text" style="width: 33%;" ng-model="fname"  id="fName" ng-focus="fnamefocusfn()" placeholder="First name" required>
+                <input type="text" style="width: 34%;" ng-model="lname" id="lName" placeholder="Last name">
+                <div id="error" class="error-fields"></div></br>
+                <input type="text" style="width: 70%;" ng-model="uname" id="uName" placeholder="Email ID"
+                       ng-focus="focusfn()" ng-blur="blurfn()" required>
+                <h1 style="color: red">{{alreadyExists}}</h1>
+                <div id="error1" class="error-fields"></div></br>
+                <input type="password" style="width: 70%;" ng-model="password" id="pass" ng-focus="passfocusfn()" placeholder="Password" required>
+                <div id="errorPass" class="check-fields"></div></br>
+                <input type="password" style="width: 70%;" ng-model="confirmpassword" id="confirmPass" ng-focus="confirmpassfocusfn()" placeholder="Confirm Password" required >
+                <div id="error2" class="error-fields"></div></br>
+                <div id="errorConfirmPass" class="check-fields"></div>
+
+                <input type="text" style="width: 70%;" ng-model="mobile" id="mobilePhone" placeholder="Mobile phone" optional><br>
+                <div id="error3" class="error-fields"></div></br>
+
+                <div>
+                <select id="security" name="question" style="width:70%;border: 1px solid #eee;
+    border-left: 3px solid palegreen;
+    border-radius: 5px;
+    height: 32px;" >
+                    <option selected disabled >Choose below</option>
+                        <option>&nbsp;&nbsp;Where is your first job?</option>
+                    <option>&nbsp;&nbsp;What is your first movie?</option>
+                    <option>&nbsp;&nbsp;What is your favourite place?</option>
+                    <option>&nbsp;&nbsp;What is your first school?</option>
+                </select></div>
+                </br>
+                <input type="text" style="width: 70%; left: 0.5%; position: relative;" id="answer" ng-model="answer" ng-focus="answerfocusfn()" placeholder="Answer" required >
+                <br><br>
+
+                 By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a></br>
+                <input type="submit" class="button" style="padding:9px 18px;"
+                       value="Sign UP"
+
+                       ng-click="insertData()">
+                <br>
+                <span id="finalError" class="error-fields"></span>
+                <!--<span id="finalMsg" style="color:palegreen"></span>-->
+            </fieldset>
+        </form>
+        <!--<input type="text"  style="width: 100% ;border: 0px; background-color: #F5F5F5; color: red" ng-model="finalErr">-->
+        <h1 style="color: red">{{finalErr}}</h1>
+        <h1 style="color: palegreen">{{finalMsg}}</h1>
+    </div>
+</div>
+    <script>
+        fName.onblur = function() {
+            var alpha= new RegExp('.*\\d.*');
+            if ((alpha.test(fName.value))) { // not email
+                fName.classList.add('invalid');
+                error.innerHTML = 'Numbers are not allowed in First Name'
+            }
+        };
+        fName.onfocus = function() {
+            if (this.classList.contains('invalid')) {
+                this.classList.remove('invalid');
+                error.innerHTML = "";
+            }
+        };
+
+        mobilePhone.onblur = function() {
+
+            var re1 = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
+            if (!(re1.test(mobilePhone.value)) && mobilePhone.value!="") {
+                mobilePhone.classList.add('invalid');
+                error3.innerHTML = 'Please enter valid number'
+            }
+        };
+
+        mobilePhone.onkeyup=function()
+        {
+            errorConfirmPass.innerHTML="";
+        }
+
+        mobilePhone.onfocus = function() {
+            if (this.classList.contains('invalid')) {
+                this.classList.remove('invalid');
+                error3.innerHTML = "";
+            }
+        };
+
+        uName.onblur = function() {
+            var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            if (!(re.test(uName.value)) && (uName.value)) {
+                uName.classList.add('invalid');
+                error1.innerHTML = 'Please enter correct Email Address'
+            }
+        };
+
+        uName.onfocus = function() {
+            if (this.classList.contains('invalid')) {
+                this.classList.remove('invalid');
+                error1.innerHTML = "";
+            }
+        };
+
+        pass.onkeyup= function()
+
+        {
+            if(pass.value.length>5)
+            {
+                errorPass.innerHTML="Strength:good";
+            }
+            else
+            {
+                errorPass.innerHTML="Strength:poor";
+            }
+        }
+
+        security.onkeyup = function()
+        {
+            errorConfirmPass.innerHTML="";
+        }
+
+        confirmPass.onkeyup= function()
+
+        {
+            errorPass.innerHTML="";
+            if(confirmPass.value.length>5)
+            {
+                errorConfirmPass.innerHTML="Strength:good";
+            }
+            else
+            {
+                errorConfirmPass.innerHTML="Strength:poor";
+            }
+        }
+        confirmPass.onblur = function() {
+            if (!(confirmPass.value.toString()).match(pass.value.toString())) {
+                confirmPass.classList.add('invalid');
+                error2.innerHTML = 'Passwords should be same'
+            }
+        };
+
+        confirmPass.onfocus = function() {
+            if (this.classList.contains('invalid')) {
+                this.classList.remove('invalid');
+                error2.innerHTML = "";
+            }
+        };
+    </script>
+</body>
+<!--<script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular.js"></script>-->
+<!--<script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-resource.js"></script>-->
+<!--<script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-sanitize.js"></script>-->
+<script src="js/app.js"></script>
+</html> 
