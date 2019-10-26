@@ -24,9 +24,13 @@ const transporter = nodemailer.createTransport({
         accessToken: 'ya29.GltFBjWUTyAiDH7USeXj3duqUCq_Opy9N0l2onl-JTmj-Mi1_dN79sb5TVaPSiEjHASA80xoqtJd4DJ79o4JZqPsyW6HiVPmW_DIdVO9ISQlqVqMWPGkfbVR3dZf',
     },
 });
-app.use(cors());
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+app.get('/', function(req, res) {
+    res.render('index.html');
+})
 app.post('/enroll', function (req, res) {
     MongoClient.connect(url, function(err, client) {
         if(err)
