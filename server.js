@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.get('/', function(req, res) {
-    res.render('index.html');
+    res.render('LoginPage');
 })
 app.post('/enroll', function (req, res) {
     MongoClient.connect(url, function(err, client) {
