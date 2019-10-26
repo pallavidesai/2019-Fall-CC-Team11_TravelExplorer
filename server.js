@@ -9,6 +9,8 @@ var cors = require('cors');
 var app = express();
 var request=require("request");
 
+var port = process.env.PORT || 8080;
+
 const nodemailer = require ('nodemailer');
 const xoauth2 =  require ('xoauth2') ;
 // var url = 'mongodb://root:secure@ds161483.mlab.com:61483/asefall17';
