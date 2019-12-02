@@ -123,9 +123,10 @@ angular.module('indexpage',[])
                                 $scope.placeRatings.push(results[j].rating);
 
                                 var appendedstring = results[j].rating + "###" + results[j].formatted_address + "***" + results[j].name + "^^^" + image;
-                                console.log("appendedstring......"+appendedstring);
+                                // console.log("appendedstring......"+appendedstring);
                                 $scope.placesArray.push(appendedstring);
                                 $scope.placeNames.push(results[j].name);
+                                // console.log($scope.placesArray);
                             }
                             }, 3000);
 
@@ -153,7 +154,6 @@ angular.module('indexpage',[])
                                 //console.log(place_Name);
 
                                 $http.get('http://127.0.0.1:8081/getDescription?searchkey='+place_Name).then(function(descriptiondata)
-                                    //$http.get("https://kgsearch.googleapis.com/v1/entities:search?query="+place_Name+"&key=AIzaSyCZbMz2VUDfsNIawl7W9W64FpZp8gsoh10&limit=1&indent=True").success(function(descriptiondata)
                                 {
                                     try {
                                         console.log(descriptiondata);
@@ -167,8 +167,9 @@ angular.module('indexpage',[])
                                 })
 
                                 $http.get('http://127.0.0.1:8081/getPlaceData?searchkey='+placeId).then(function(placedata)
-                                    //$http.get("https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeId+"&key=AIzaSyCvnpFKAcsp9bg94zysoNY7QLv-P3SghJ8").then(function(placedata)
                                 {
+
+                                    
                                     $scope.weekdayHours_week=[];
                                     var documents=[];
 
@@ -180,6 +181,7 @@ angular.module('indexpage',[])
                                     $scope.user_rating_header = "User Rating :- ";
 
                                     if(placedata.data.result.reviews !=null) {
+                                        console.log("Entered the required function");
                                         $scope.author_Name = placedata.data.result.reviews[0].author_name;
                                         $scope.reviewtime = placedata.data.result.reviews[0].relative_time_description;
                                         $scope.comment = placedata.data.result.reviews[0].text;
@@ -218,8 +220,8 @@ angular.module('indexpage',[])
 
                         }
                     }, 5000);
-                    // document.getElementById("btn2").style.visibility = "visible";
-                    // document.getElementById("btn3").style.visibility = "visible";
+                    document.getElementById("btn2").style.visibility = "visible";
+                    document.getElementById("btn3").style.visibility = "visible";
 
                     var currentdate = new Date();
                     var myDate = new Date(currentdate.getMonth()+1 + "/"
