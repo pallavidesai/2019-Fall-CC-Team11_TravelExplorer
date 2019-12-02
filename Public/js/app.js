@@ -17,7 +17,8 @@ myapp.controller('gethistory',function($scope,$http){
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
         }
     }
-    $http.get('https://travelexplorercloud.herokuapp.com/getHistoryData?keywords='+localStorage.getItem("userid123")).then(function(d)
+    // // var req = $http.get('http://127.0.0.1:8081/getData');
+    $http.get('http://127.0.0.1:8081/getHistoryData?keywords='+localStorage.getItem("userid123")).then(function(d)
         {
             // console.log("document is ok"+document);
             console.log("val "+JSON.stringify({d: d}));
@@ -98,7 +99,8 @@ myapp.controller('getprofile',function($scope,$http){
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
         }
     }
-    $http.get('https://travelexplorercloud.herokuapp.com/getData?keywords='+localStorage.getItem("userid123")).then(function(d)
+    // // var req = $http.get('http://127.0.0.1:8081/getData');
+    $http.get('http://127.0.0.1:8081/getData?keywords='+localStorage.getItem("userid123")).then(function(d)
         {
             console.log("document is ok"+document);
             console.log("val "+JSON.stringify({d: d}));
@@ -156,7 +158,7 @@ myapp.controller('MongoRestController',function($scope,$http,$window){
     $scope.blurfn = function () {
         $scope.focus = false;
 
-        $http.get('https://travelexplorercloud.herokuapp.com/getData?keywords='+$scope.uname).then(function(d)
+        $http.get('http://127.0.0.1:8081/getData?keywords='+$scope.uname).then(function(d)
             {
                 console.log("Len is already present"+d.data.length);
                 console.log("val already present"+JSON.stringify({d: d}));
@@ -223,7 +225,7 @@ myapp.controller('MongoRestController',function($scope,$http,$window){
             }
         }
         if(x==true) {
-            $http.get('https://travelexplorercloud.herokuapp.com/getData?keywords='+$scope.uname).then(function(d)
+            $http.get('http://127.0.0.1:8081/getData?keywords='+$scope.uname).then(function(d)
                 {
                     console.log("Len is "+d.data.length);
                     console.log("val "+JSON.stringify({d: d}));
@@ -278,9 +280,10 @@ myapp.controller('getController',function($scope,$http,$window){
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
             }
         }
+        // var req = $http.get('http://127.0.0.1:8081/getData');
 
         if(x==true) {
-            $http.get('https://travelexplorercloud.herokuapp.com/getData?keywords=' + $scope.uname).then(function (d) {
+            $http.get('http://127.0.0.1:8081/getData?keywords=' + $scope.uname).then(function (d) {
                     console.log(typeof(d));
                     console.log("length is " + d.data.length);
                     if (d.data.length != 0) {

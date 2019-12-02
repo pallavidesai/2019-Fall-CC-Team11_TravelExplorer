@@ -48,7 +48,7 @@ angular.module('indexpage',[])
                 else
                 {
                     $scope.finalErr = '';
-                    $http.get('https://travelexplorercloud.herokuapp.com/getPlaces?searchkey='+search_keyword).then(function(data)
+                    $http.get('http://127.0.0.1:8081/getPlaces?searchkey='+search_keyword).then(function(data)
                         //$http.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query="+$scope.searchDestination+"+point+of+interest"+interestValue+"&language=en&key=AIzaSyCvnpFKAcsp9bg94zysoNY7QLv-P3SghJ8").then(function(data)
                     {
                         var photoReference='';
@@ -60,7 +60,7 @@ angular.module('indexpage',[])
                             console.log("Budget is",$scope.budget);
                             for (var j = length - 1; j >=0; j--) {
                                 console.log("It is oh ",results[j].name);
-                                $http.get('https://travelexplorercloud.herokuapp.com/getCost?keywords='+results[j].name).success(function(d)
+                                $http.get('http://127.0.0.1:8081/getCost?keywords='+results[j].name).success(function(d)
                                     {
                                         // console.log("It is oh1 ",results[j].name);
                                         if (d.length >0)
@@ -153,7 +153,7 @@ angular.module('indexpage',[])
                                 var place_Name=$scope.placeNames[z];
                                 //console.log(place_Name);
 
-                                $http.get('https://travelexplorercloud.herokuapp.com/getDescription?searchkey='+place_Name).then(function(descriptiondata)
+                                $http.get('http://127.0.0.1:8081/getDescription?searchkey='+place_Name).then(function(descriptiondata)
                                 {
                                     try {
                                         console.log(descriptiondata);
@@ -166,7 +166,7 @@ angular.module('indexpage',[])
                                     }
                                 })
 
-                                $http.get('https://travelexplorercloud.herokuapp.com/getPlaceData?searchkey='+placeId).then(function(placedata)
+                                $http.get('http://127.0.0.1:8081/getPlaceData?searchkey='+placeId).then(function(placedata)
                                 {
 
                                     
@@ -244,7 +244,7 @@ angular.module('indexpage',[])
                             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
                         }
                     }
-                    var req = $http.post('https://travelexplorercloud.herokuapp.com/insdata',dataParams);
+                    var req = $http.post('http://127.0.0.1:8081/insdata',dataParams);
                     req.success(function(data, status, headers, config) {
                         $scope.message = data;
                         console.log("here "+data);
